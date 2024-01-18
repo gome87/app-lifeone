@@ -27,7 +27,7 @@
 
 	<servlet-mapping>
 		<servlet-name>appServlet</servlet-name>
-		<url-pattern>/.well-known/apple-app-site-association</url-pattern>
+		<url-pattern>/</url-pattern>
 	</servlet-mapping>
 
 	<filter>
