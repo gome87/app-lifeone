@@ -1,1 +1,1 @@
-web: java target/*.war
+web:
