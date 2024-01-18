@@ -1,1 +1,1 @@
-web: java -jar target/lgchem.jar
+web: java -jar target/lgchem-1.0.0-BUILD-SNAPSHOT
