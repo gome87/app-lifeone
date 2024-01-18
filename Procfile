@@ -1,1 +1,1 @@
-web: java -Dserver.port=$PORT -jar target/lgchem.jar
+web: java -jar target/lgchem.jar
