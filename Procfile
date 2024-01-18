@@ -1,1 +1,1 @@
-web: java target/classes:target/dependency/*
+web: java
