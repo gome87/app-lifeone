@@ -1,1 +1,1 @@
-web: java -cp target/classes:target/dependency/* app.lifeone.lgchem.HomeController
+web: java target/classes:target/dependency/*
