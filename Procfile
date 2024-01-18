@@ -1,1 +1,1 @@
-web: java -Dserver.port=$PORT -jar target/app-lifeone.jar
+web: java -Dserver.port=$PORT -jar target/lgchem.jar
