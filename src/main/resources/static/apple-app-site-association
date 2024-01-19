@@ -3,9 +3,11 @@
         "apps": [],
         "details": [{
             "appID": "763KP7LRG5.kr.co.polarisOfficeViewerTest-inhouse",
-            "components": [{
-                /: "*"
-            }]
+            "components": [
+                {
+                    "/": "*"
+                }
+            ]
         }]
     }
 }
