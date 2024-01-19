@@ -55,7 +55,7 @@ public class HomeController {
 	@ResponseBody
 	public String getAppleAppSiteAssociation(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-		String fileName = ".well-known/apple-app-site-association";
+		String fileName = "static/apple-app-site-association";
 		ClassPathResource resource = new ClassPathResource(fileName);
 		String body = new String(Files.readAllBytes(resource.getFile().toPath()));
 
