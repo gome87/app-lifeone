@@ -51,7 +51,7 @@ public class HomeController {
 	 * Simply selects the home view to render by returning its name.
 	 * @throws IOException
 	 */
-	@RequestMapping(value = "/.well-known/apple-app-site-association", produces = "application/json; charset=utf8")
+	@RequestMapping(value = "/apple-app-site-association", produces = "application/json; charset=utf8")
 	@ResponseBody
 	public String getAppleAppSiteAssociation(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
