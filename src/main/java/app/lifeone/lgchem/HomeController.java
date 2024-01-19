@@ -35,7 +35,7 @@ public class HomeController {
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
-		logger.info("##### 웹서비스 수신", locale);
+		logger.info("#####  홈 : {} #####", locale);
 
 		Date date = new Date();
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
@@ -55,7 +55,7 @@ public class HomeController {
 	@ResponseBody
 	public String getAppleAppSiteAssociation(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-		String fileName = "static/apple-app-site-association";
+		String fileName = ".well-known/apple-app-site-association";
 		ClassPathResource resource = new ClassPathResource(fileName);
 		String body = new String(Files.readAllBytes(resource.getFile().toPath()));
 
