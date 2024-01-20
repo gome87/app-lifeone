@@ -35,7 +35,7 @@ public class HomeController {
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
-		logger.info("#####  홈 : {} #####", locale);
+		logger.info("#####  LifeOne File Demo #####");
 
 		Date date = new Date();
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
@@ -51,7 +51,7 @@ public class HomeController {
 	 * Simply selects the home view to render by returning its name.
 	 * @throws IOException
 	 */
-	@RequestMapping(value = "/apple-app-site-association", produces = "application/json; charset=utf8")
+	@RequestMapping(value = "/.well-known/apple-app-site-association", produces = "application/json; charset=utf8")
 	@ResponseBody
 	public String getAppleAppSiteAssociation(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
