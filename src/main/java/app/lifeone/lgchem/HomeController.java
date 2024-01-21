@@ -36,7 +36,7 @@ public class HomeController {
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
-		logger.info("#####  LifeOne File Demo #####");
+		logger.info("##### LifeOne File Demo #####");
 
 		Date date = new Date();
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
@@ -53,9 +53,28 @@ public class HomeController {
 	 *
 	 * @throws IOException
 	 */
-	@RequestMapping(value = "/.well-known/apple-app-site-association", produces = "application/json; charset=utf8")
+	@RequestMapping(value = "/apple-app-site-association", produces = "application/json; charset=utf8")
 	@ResponseBody
 	public String getAppleAppSiteAssociation(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+		String fileName = "static/apple-app-site-association";
+		ClassPathResource resource = new ClassPathResource(fileName);
+		String body = new String(Files.readAllBytes(resource.getFile().toPath()));
+
+		response.setHeader(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=" + URLEncoder.encode(resource.getFilename(), "UTF-8"));
+		response.setHeader("Content-Type", MediaType.APPLICATION_JSON + ";charset=UTF-8");
+
+		return body;
+	}
+
+	/**
+	 * apple-app-site-association 설정 파일
+	 *
+	 * @throws IOException
+	 */
+	@RequestMapping(value = "/.well-known/apple-app-site-association", produces = "application/json; charset=utf8")
+	@ResponseBody
+	public String getAppleAppSiteAssociation2(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
 		String fileName = "static/apple-app-site-association";
 		ClassPathResource resource = new ClassPathResource(fileName);
@@ -80,7 +99,13 @@ public class HomeController {
 	@RequestMapping(value = "/fileDemo1")
 	public ModelAndView retrieveFileDemo1(HttpServletRequest request, ModelAndView model) throws Exception {
 
-		logger.info("#####  LifeOne File Demo Test #####");
+		String rootPath1 = System.getProperty("user.dir");
+		logger.info("##### ROOT 경로1 : {} #####", rootPath1);
+
+		String rootPath2 = request.getRealPath("/");
+		logger.info("##### ROOT 경로2 : {} #####", rootPath2);
+
+		logger.info("##### LifeOne File Demo Test #####");
 
 		// 이동화면 설정
 		ModelAndView mv = new ModelAndView();
