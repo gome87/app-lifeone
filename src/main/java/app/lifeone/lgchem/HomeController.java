@@ -80,12 +80,6 @@ public class HomeController {
 	@RequestMapping(value = "/fileDemo1")
 	public ModelAndView retrieveFileDemo1(HttpServletRequest request, ModelAndView model) throws Exception {
 
-		String rootPath1 = System.getProperty("user.dir");
-		logger.info("##### ROOT 경로1 : {} #####", rootPath1);
-
-		String rootPath2 = request.getRealPath("/");
-		logger.info("##### ROOT 경로2 : {} #####", rootPath2);
-
 		logger.info("##### LifeOne File Demo Test #####");
 
 		// 이동화면 설정
