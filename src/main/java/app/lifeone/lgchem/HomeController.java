@@ -68,25 +68,6 @@ public class HomeController {
 	}
 
 	/**
-	 * apple-app-site-association 설정 파일
-	 *
-	 * @throws IOException
-	 */
-	@RequestMapping(value = "/.well-known/apple-app-site-association", produces = "application/json; charset=utf8")
-	@ResponseBody
-	public String getAppleAppSiteAssociation2(HttpServletRequest request, HttpServletResponse response) throws IOException {
-
-		String fileName = "static/apple-app-site-association";
-		ClassPathResource resource = new ClassPathResource(fileName);
-		String body = new String(Files.readAllBytes(resource.getFile().toPath()));
-
-		response.setHeader(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=" + URLEncoder.encode(resource.getFilename(), "UTF-8"));
-		response.setHeader("Content-Type", MediaType.APPLICATION_JSON + ";charset=UTF-8");
-
-		return body;
-	}
-
-	/**
 	 * File Demo 사이트
 	 *
 	 * @param HttpServletRequest request
