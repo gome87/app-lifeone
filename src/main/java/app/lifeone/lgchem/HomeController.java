@@ -20,6 +20,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  * Handles requests for the application home page.
@@ -31,7 +32,7 @@ public class HomeController {
 
 
 	/**
-	 * Simply selects the home view to render by returning its name.
+	 * 기본페이지
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
@@ -48,7 +49,8 @@ public class HomeController {
 	}
 
 	/**
-	 * Simply selects the home view to render by returning its name.
+	 * apple-app-site-association 설정 파일
+	 *
 	 * @throws IOException
 	 */
 	@RequestMapping(value = "/.well-known/apple-app-site-association", produces = "application/json; charset=utf8")
@@ -63,6 +65,28 @@ public class HomeController {
 		response.setHeader("Content-Type", MediaType.APPLICATION_JSON + ";charset=UTF-8");
 
 		return body;
+	}
+
+	/**
+	 * File Demo 사이트
+	 *
+	 * @param HttpServletRequest request
+	 * @param ModelAndView model
+	 * @return ModelAndView
+	 * @throws Exception
+	 * @since 2024. 01. 21
+	 * @author 김영우
+	 */
+	@RequestMapping(value = "/fileDemo1")
+	public ModelAndView retrieveFileDemo1(HttpServletRequest request, ModelAndView model) throws Exception {
+
+		logger.info("#####  LifeOne File Demo Test #####");
+
+		// 이동화면 설정
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("fileDemo1");
+
+		return mv;
 	}
 
 }
