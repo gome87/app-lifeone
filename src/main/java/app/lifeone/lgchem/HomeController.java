@@ -10,6 +10,7 @@ import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.ClassPathResource;
@@ -86,6 +87,46 @@ public class HomeController {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("fileDemo1");
 
+		return mv;
+	}
+
+	/**
+	 * PolalisViewer 연결 부분
+	 *
+	 * @param HttpServletRequest req
+	 * @param HttpServletResponse rep
+	 * @return ModelAndView
+	 * @throws Exception
+	 * @since 2024. 01. 30
+	 * @author 김영우
+	 */
+	@RequestMapping(value = "/polalisViewer", method = { RequestMethod.GET })
+	public ModelAndView retrievePolalisViewer(HttpServletRequest req, HttpServletResponse res) throws Exception {
+
+		logger.info("##### 값 테스트 1 : {} #####", req.getQueryString());
+
+		// 쿼리 스트링값 가져오기
+		String sQueryString = req.getQueryString();
+
+		// 값이 없는 경우 에러 페이지로 이동
+		if(StringUtils.isBlank(sQueryString)) {
+			logger.info("##### 수신되어진 값 없음 #####");
+			return null;
+		}
+
+		// 상세 파라미터 검증
+		String[] arrQueryString = StringUtils.split(sQueryString, "&");
+		for(int nIdx=0; nIdx < arrQueryString.length; nIdx++) {
+			String[] arrValues = StringUtils.split(arrQueryString[nIdx], "=");
+			if(StringUtils.isBlank(arrValues[0]) || StringUtils.isBlank(arrValues[1])) {
+				logger.info("##### 파라미터 확인 필요 #####");
+			}
+		}
+
+		// 이동화면 설정
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("polalis");
+		mv.addObject("RTN_VAL", sQueryString);
 		return mv;
 	}
 

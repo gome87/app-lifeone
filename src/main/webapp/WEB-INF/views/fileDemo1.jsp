@@ -64,7 +64,7 @@
 			  * 외부 App 호출
 			  */
 			function inAppBrowserOut(sVal){
-				location.href=sVal;
+				//location.href=sVal;
 
 				//var link = document.createElement("a");
 				//link.setAttribute("href"  , sVal);
