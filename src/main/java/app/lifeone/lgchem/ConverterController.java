@@ -26,6 +26,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import kr.dogfoot.hwpxlib.object.HWPXFile;
+import kr.dogfoot.hwpxlib.reader.HWPXReader;
+import kr.dogfoot.hwpxlib.tool.textextractor.TextExtractMethod;
+import kr.dogfoot.hwpxlib.tool.textextractor.TextExtractor;
+import kr.dogfoot.hwpxlib.tool.textextractor.TextMarks;
+
 @Controller
 public class ConverterController {
 
@@ -53,19 +59,19 @@ public class ConverterController {
 			officeManager.start();
 
 			// 오피스 To Pdf
-			logger.info("##### Convert Start #####");
-			File excelFile = new File("C:\\fileupload\\convert_after\\a.xlsx");
-			File pdfFile = new File("C:\\fileupload\\convert_before\\a.pdf");
-
-			converter.convert(excelFile).to(pdfFile).execute();
-			logger.info("##### Convert End #####");
-
-			// Pdf To jpg
-			logger.info("##### Converter image #####");
-			if (pdfFile.isFile() && getFileExtension(pdfFile.getName()).equalsIgnoreCase("pdf")) {
-				this.convert(pdfFile);
-			}
-			logger.info("##### Converter image #####");
+//			logger.info("##### Convert Start #####");
+//			File excelFile = new File("C:\\fileupload\\convert_after\\a.xlsx");
+//			File pdfFile = new File("C:\\fileupload\\convert_before\\a.pdf");
+//
+//			converter.convert(excelFile).to(pdfFile).execute();
+//			logger.info("##### Convert End #####");
+//
+//			// Pdf To jpg
+//			logger.info("##### Converter image #####");
+//			if (pdfFile.isFile() && getFileExtension(pdfFile.getName()).equalsIgnoreCase("pdf")) {
+//				this.convert(pdfFile);
+//			}
+//			logger.info("##### Converter image #####");
 
 			// logger.info("##### Base64 Encoding Start #####");
 			// String sEncodeString = this.convertImageToBase64Decoding(pdfFile);
@@ -74,6 +80,8 @@ public class ConverterController {
 			// logger.info("##### Base64 Decoding Start #####");
 			// this.convertBase64Decoding(sEncodeString);
 			// logger.info("##### Base64 Decoding End #####");
+
+			this.convertHwpxToText("");
 
 		} finally {
 			officeManager.stop();
@@ -94,7 +102,7 @@ public class ConverterController {
 			File destinationFile = new File(destinationDir);
 			if (!destinationFile.exists()) {
 				boolean fileCreated = destinationFile.mkdir();
-				if (fileCreated){
+				if (fileCreated) {
 					logger.info("Folder Created -> {}", destinationFile.getAbsolutePath());
 				}
 			}
@@ -173,8 +181,57 @@ public class ConverterController {
 			fos.close();
 
 		} catch (IOException e) {
-			e.printStackTrace();
 			logger.error(">>>>>>>>>>  convertBase64Decoding ERROR !!  {}", e.getMessage());
 		}
 	}
+
+	/**
+	 * hwp를 String으로 변환
+	 *
+	 * @param String 파일경로
+	 * @return
+	 * @throws Exception
+	 * @since 2024. 02. 02
+	 * @author 김영우
+	 */
+//	private void convertHwpToText(String sFilePath) {
+//
+//		HWPFile hwpFile = null;
+//		try {
+//			hwpFile = HWPReader.fromFile("C:\\fileupload\\a.hwp");
+//			TextExtractOption option = new TextExtractOption();
+//	        option.setMethod(TextExtractMethod.InsertControlTextBetweenParagraphText);
+//	        option.setWithControlChar(false);
+//	        option.setAppendEndingLF(true);
+//
+//	        String sHwpText = TextExtractor.extract(hwpFile, option);
+//
+//	        logger.info("##### 변환 내용 : {} #####", sHwpText);
+//		} catch (Exception e) {
+//			logger.error(">>>>>>>>>>  convertHwpToText ERROR !!  {}", e.getMessage());
+//		}
+//	}
+
+	/**
+	 * hwpx를 String으로 변환
+	 *
+	 * @param String 파일경로
+	 * @return
+	 * @throws Exception
+	 * @since 2024. 02. 02
+	 * @author 김영우
+	 */
+	private void convertHwpxToText(String sFilePath) {
+
+		try {
+			HWPXFile hwpxFile = HWPXReader.fromFilepath("C:\\fileupload\\a.hwpx");
+			String result = TextExtractor.extract(hwpxFile, TextExtractMethod.AppendControlTextAfterParagraphText, null,
+					false, new TextMarks().lineBreakAnd("\n").paraSeparatorAnd("\n"));
+
+			logger.info("##### 변환 내용 : {} #####", result);
+		} catch (Exception e) {
+			logger.error(">>>>>>>>>>  convertHwpToText ERROR !!  {}", e.getMessage());
+		}
+	}
+
 }
